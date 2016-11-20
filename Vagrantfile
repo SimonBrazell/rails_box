@@ -5,6 +5,7 @@ Vagrant.configure("2") do |config|
 
   # Use Ubuntu 14.04 Trusty Tahr 64-bit
   config.vm.box = "ubuntu/trusty64"
+  config.vm.hostname = 'rails-box'
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine.
@@ -23,7 +24,7 @@ Vagrant.configure("2") do |config|
 
   # RVM, Ruby, Bundler and Rails install
   config.vm.provision :shell, path: "install-rvm.sh", args: "stable", privileged: false
-  config.vm.provision :shell, path: "install-ruby.sh", args: "ruby-2.3.1@rails5.0.0.1 bundler:1.12.5 rails:5.0.0.1", privileged: false
+  config.vm.provision :shell, path: "install-ruby.sh", args: "ruby@rails bundler rails", privileged: false
 
   # NodeJS and Postgres install
   config.vm.provision "shell", inline: <<-SHELL
@@ -63,7 +64,7 @@ Vagrant.configure("2") do |config|
     echo 'alias server="rails server -b 0.0.0.0"' >> /home/vagrant/.profile
     echo 'alias c=clear' >> /home/vagrant/.profile
     echo 'cd /vagrant' >> /home/vagrant/.profile
-    echo 'rvm gemset use rails5.0.0.1' >> /home/vagrant/.profile
+    echo 'rvm gemset use rails' >> /home/vagrant/.profile
     echo "
     ######################
     Provisioning complete.
